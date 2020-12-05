@@ -64,9 +64,9 @@ class DISPLAY():
             text = f'En: {derived_data["charge"]:.2f} {derived_data["trip_efficiency"]:.2f}'
         elif self.update_line == 4:
             if abs(vehicle_data['battery_current']) < 10.0:
-                text = f'C: {vehicle_data["battery_current_BMS"]:.1f} {vehicle_data["battery_current"]:.0f} {vehicle_data["motor_current"]:.0f}'
+                text = f'ec{vehicle_data["battery_current_BMS"]:.1f} ac{vehicle_data["battery_current"]:.0f} mc{vehicle_data["motor_current"]:.0f}'
             else:
-                text = f'C: {vehicle_data["battery_current_BMS"]:.0f} {vehicle_data["battery_current"]:.0f} {vehicle_data["motor_current"]:.0f}'
+                text = f'ec{vehicle_data["battery_current_BMS"]:.0f} ac{vehicle_data["battery_current"]:.0f} mc{vehicle_data["motor_current"]:.0f}'
         elif self.update_line == 5:
             text = f'S: {derived_data["speed"]:.1f} {derived_data["distance"]:.1f}'
         elif self.update_line == 6:

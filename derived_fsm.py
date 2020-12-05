@@ -31,4 +31,4 @@ class DERIVED_FSM():
 
         # update previous readings with current
         derived_data['battery_current_prev'] = vehicle_data['battery_current']
-        derived_data['battery_voltage_prev'] = vehicle_data['battery_voltage'
+        derived_data['battery_voltage_prev'] = vehicle_data['battery_voltage']

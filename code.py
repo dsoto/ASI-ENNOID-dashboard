@@ -4,7 +4,7 @@ import board
 import time
 import display_fsm
 import bms_fsm
-# import asi_fsm
+import asi_fsm
 import derived_fsm
 import buttons_fsm
 import sd_card_fsm
@@ -42,7 +42,7 @@ spi = board.SPI()
 
 display = display_fsm.DISPLAY(spi)
 bms = bms_fsm.BMS_FSM()
-# asi = asi_fsm.ASI_FSM()
+asi = asi_fsm.ASI_FSM()
 derived = derived_fsm.DERIVED_FSM()
 buttons = buttons_fsm.BUTTONS_FSM(spi)
 sd_card = sd_card_fsm.SD_CARD_FSM()
@@ -59,7 +59,7 @@ while True:
     # print('t', time.monotonic() - time_stamps['event_loop_current'])
     bms.update(vehicle_data)
     # print('b', time.monotonic() - time_stamps['event_loop_current'])
-    # asi.update(vehicle_data)
+    asi.update(vehicle_data)
     # print('a', time.monotonic() - time_stamps['event_loop_current'])
     derived.update(vehicle_data, derived_data, time_stamps)
     # print('c', time.monotonic() - time_stamps['event_loop_current'])
