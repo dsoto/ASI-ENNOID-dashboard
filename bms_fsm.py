@@ -37,6 +37,7 @@ class BMS_FSM():
             vehicle_data['high_cell_voltage'] = struct.unpack('>L', self.response[12:16])[0] / 1000.0
             vehicle_data['low_cell_voltage'] = struct.unpack('>L', self.response[20:24])[0] / 1000.0
             vehicle_data['high_battery_temp'] = struct.unpack('>h', self.response[34:36])[0] / 10.0
+            vehicle_data['high_BMS_temp'] = struct.unpack('>h', self.response[38:40])[0] / 10.0
 
             self.state = 'request'
             return vehicle_data

@@ -43,7 +43,7 @@ class SD_CARD_FSM():
                 break
 
         with open(self.filename, 'w') as file:
-            file.write('time,hv,lv,battery_voltage,battery_current,battery_voltage_BMS,battery_current_BMS,motor_current,temperature,internal_resistance,distance')
+            file.write('time,hv,lv,battery_voltage,battery_current,battery_voltage_BMS,battery_current_BMS,motor_current,battery_temperature,BMS_temperature,motor_temperature,controller_temperature,internal_resistance,distance\n')
 
     def update(self, vehicle_data, derived_data, button_states):
 
@@ -72,6 +72,9 @@ class SD_CARD_FSM():
                 file.write('%0.2f' % vehicle_data['motor_current'])
                 file.write(',')
                 file.write('%0.2f' % vehicle_data['high_battery_temp'])
+                file.write('%0.2f' % vehicle_data['high_BMS_temp'])
+                file.write('%0.2f' % vehicle_data['motor_temperature'])
+                file.write('%0.2f' % vehicle_data['controller_temperature'])
                 file.write(',')
                 file.write('%0.4f' % derived_data['internal_resistance'])
                 file.write(',')
