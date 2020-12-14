@@ -53,22 +53,26 @@ class DISPLAY():
 
 
         # print('enter update', time.monotonic())
+        # rotate through lines to get better response rate and reduce flicker
 
         if self.update_line == 0:
             text = f'CV: {vehicle_data["high_cell_voltage"]:.2f} {vehicle_data["low_cell_voltage"]:.2f}'
         elif self.update_line == 1:
-            text = f'B: {vehicle_data["high_battery_temp"]:.1f} {derived_data["internal_resistance"]*1000:.0f}'
+            # text = f'B: {vehicle_data["high_battery_temp"]:.1f} {derived_data["internal_resistance"]*1000:.0f}'
+            text = f'B {vehicle_data["high_battery_temp"]:.0f} M {vehicle_data["motor_temperature"]:.0f} C {vehicle_data["controller_temperature"]:.0f}'
+        # elif self.update_line == 2:
+        #     text = f'M {vehicle_data["motor_temperature"]:.0f} C{vehicle_data["controller_temperature"]:.0f}'
         elif self.update_line == 2:
-            text = f'M: {vehicle_data["motor_temperature"]:.0f} C:{vehicle_data["controller_temperature"]:.0f}'
-        elif self.update_line == 3:
-            text = f'En: {derived_data["charge"]:.2f} {derived_data["trip_efficiency"]:.2f}'
-        elif self.update_line == 4:
             if abs(vehicle_data['battery_current']) < 10.0:
-                text = f'ec{vehicle_data["battery_current_BMS"]:.1f} ac{vehicle_data["battery_current"]:.0f} mc{vehicle_data["motor_current"]:.0f}'
+                text = f'ac{vehicle_data["battery_current"]:.0f} ec{vehicle_data["battery_current_BMS"]:.1f} mc{vehicle_data["motor_current"]:.0f}'
             else:
-                text = f'ec{vehicle_data["battery_current_BMS"]:.0f} ac{vehicle_data["battery_current"]:.0f} mc{vehicle_data["motor_current"]:.0f}'
-        elif self.update_line == 5:
+                text = f'ac{vehicle_data["battery_current"]:.0f} ec{vehicle_data["battery_current_BMS"]:.0f} ac{vehicle_data["battery_current"]:.0f} mc{vehicle_data["motor_current"]:.0f}'
+        elif self.update_line == 3:
+            text = f'IR {derived_data["internal_resistance"]*1000:.0f}'
+        elif self.update_line == 4:
             text = f'S: {derived_data["speed"]:.1f} {derived_data["distance"]:.1f}'
+        elif self.update_line == 5:
+            text = f'C {derived_data["charge"]:.2f} E {derived_data["trip_efficiency"]:.2f}'
         elif self.update_line == 6:
             text = f'dt: {time_stamps["event_loop_elapsed"] * 1000:.0f}'
 
