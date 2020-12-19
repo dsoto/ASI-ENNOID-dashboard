@@ -58,15 +58,12 @@ class DISPLAY():
         if self.update_line == 0:
             text = f'CV: {vehicle_data["high_cell_voltage"]:.2f} {vehicle_data["low_cell_voltage"]:.2f}'
         elif self.update_line == 1:
-            # text = f'B: {vehicle_data["high_battery_temp"]:.1f} {derived_data["internal_resistance"]*1000:.0f}'
-            text = f'B {vehicle_data["high_battery_temp"]:.0f} M {vehicle_data["motor_temperature"]:.0f} C {vehicle_data["controller_temperature"]:.0f}'
-        # elif self.update_line == 2:
-        #     text = f'M {vehicle_data["motor_temperature"]:.0f} C{vehicle_data["controller_temperature"]:.0f}'
-        elif self.update_line == 2:
             if abs(vehicle_data['battery_current']) < 10.0:
-                text = f'ac{vehicle_data["battery_current"]:.0f} ec{vehicle_data["battery_current_BMS"]:.1f} mc{vehicle_data["motor_current"]:.0f}'
+                text = f'C {vehicle_data["battery_current"]:.0f} B {vehicle_data["battery_current_BMS"]:.1f} M {vehicle_data["motor_current"]:.0f}'
             else:
-                text = f'ac{vehicle_data["battery_current"]:.0f} ec{vehicle_data["battery_current_BMS"]:.0f} ac{vehicle_data["battery_current"]:.0f} mc{vehicle_data["motor_current"]:.0f}'
+                text = f'C {vehicle_data["battery_current"]:.0f} B {vehicle_data["battery_current_BMS"]:.0f} M {vehicle_data["motor_current"]:.0f}'
+        elif self.update_line == 2:
+            text = f'B {vehicle_data["high_battery_temp"]:.0f} M {vehicle_data["motor_temperature"]:.0f} C {vehicle_data["controller_temperature"]:.0f}'
         elif self.update_line == 3:
             text = f'IR {derived_data["internal_resistance"]*1000:.0f}'
         elif self.update_line == 4:
