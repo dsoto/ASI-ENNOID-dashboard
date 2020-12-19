@@ -27,17 +27,19 @@ class BMS_FSM():
             # print('bp', time.monotonic())
             try:
                 self.response = self.bms_uart.read(48) # ENNOID 48 DBMS 53
+
+                # if reading battery from BMS
+                vehicle_data['battery_voltage_BMS'] = struct.unpack('>L', self.response[3:7],)[0] / 1000.
+                vehicle_data['battery_current_BMS'] = -struct.unpack('>l', self.response[7:11])[0] / 1000.
+
+                vehicle_data['high_cell_voltage'] = struct.unpack('>L', self.response[12:16])[0] / 1000.0
+                vehicle_data['low_cell_voltage'] = struct.unpack('>L', self.response[20:24])[0] / 1000.0
+                vehicle_data['high_battery_temp'] = struct.unpack('>h', self.response[34:36])[0] / 10.0
+                vehicle_data['high_BMS_temp'] = struct.unpack('>h', self.response[38:40])[0] / 10.0
+
+                self.state = 'request'
+
             except:
-                print('response failed')
+                print('BMS response failed')
 
-            # if reading battery from BMS
-            vehicle_data['battery_voltage_BMS'] = struct.unpack('>L', self.response[3:7],)[0] / 1000.
-            vehicle_data['battery_current_BMS'] = -struct.unpack('>l', self.response[7:11])[0] / 1000.
-
-            vehicle_data['high_cell_voltage'] = struct.unpack('>L', self.response[12:16])[0] / 1000.0
-            vehicle_data['low_cell_voltage'] = struct.unpack('>L', self.response[20:24])[0] / 1000.0
-            vehicle_data['high_battery_temp'] = struct.unpack('>h', self.response[34:36])[0] / 10.0
-            vehicle_data['high_BMS_temp'] = struct.unpack('>h', self.response[38:40])[0] / 10.0
-
-            self.state = 'request'
             return vehicle_data
